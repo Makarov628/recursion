@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using Task8;
 
@@ -24,7 +25,11 @@ namespace Tests
 
             var filePaths = FileFinder.FindAllFiles(path);
             Assert.That(filePaths.Count, Is.EqualTo(4));
-            Assert.That(filePaths.ToArray(), Is.EquivalentTo(pathList));
+            Assert.That(filePaths, Is.EquivalentTo(pathList));
+
+            var filePathsArray = FileFinder.FindAllFilesEnumerable(path).ToArray();
+            Assert.That(filePathsArray.Length, Is.EqualTo(4));
+            Assert.That(filePathsArray, Is.EquivalentTo(pathList));
         }
 
 

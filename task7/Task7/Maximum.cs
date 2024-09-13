@@ -7,24 +7,26 @@ namespace Task7
 
    public static class Maximum
    {
-      public static (int max1, int max2) FindTwoMaxInArray(int[] numbers)
+      public static (T max1, T max2) FindTwoMaxInArray<T>(T[] numbers) where T : IComparable<T>
       {
-         return FindTwoMaxInArrayRecursive(numbers, numbers.Length - 1, int.MinValue, int.MinValue);
+         return FindTwoMaxInArrayRecursive(numbers, numbers.Length - 1, default, default);
       }
 
-      private static (int max1, int max2) FindTwoMaxInArrayRecursive(int[] numbers, int index, int max1, int max2)
+      private static (T max1, T max2) FindTwoMaxInArrayRecursive<T>(T[] numbers, int index, T max1, T max2) where T : IComparable<T>
       {
          if (index < 0)
             return (max1, max2);
 
-         int current = numbers[index];
+         T current = numbers[index];
+         bool max1LessCurrent = max1.CompareTo(current) < 0;
+         bool max2LessOrEqualCurrent = max2.CompareTo(current) <= 0;
 
-         if (current > max1)
+         if (max1LessCurrent)
          {
             max2 = max1;
             max1 = current;
          }
-         else if (current >= max2)
+         else if (max2LessOrEqualCurrent)
          {
             max2 = current;
          }

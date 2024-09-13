@@ -12,16 +12,17 @@ namespace Task4
          if (string.IsNullOrEmpty(value))
             return false;
 
-         return IsPalindromeRecursive(value);
+         char[] chars = value.ToCharArray();
+         return IsPalindromeRecursive(ref chars, 0, chars.Length - 1);
       }
 
-      private static bool IsPalindromeRecursive(string substring)
+      private static bool IsPalindromeRecursive(ref char[] chars, int firstIndex, int lastIndex)
       {
-         if (substring.First() != substring.Last())
+         if (chars[firstIndex] != chars[lastIndex])
             return false;
 
-         if (substring.Length > 1)
-            IsPalindromeRecursive(substring.Substring(1, substring.Length - 1));
+         if (lastIndex - firstIndex > 0)
+            IsPalindromeRecursive(ref chars, firstIndex + 1, lastIndex - 1);
 
          return true;
       }
